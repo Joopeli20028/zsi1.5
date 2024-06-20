@@ -1,0 +1,15 @@
+Change-log 📖 
+
+Wednesday 19th June 2024 *
+- wikipedia database interaction 📚 
+- user interacions integrated to base model 🤖 
+- new ui design 🏠 
+- new AI engine 🔧 
+- bug fixes 🐛 
+
+Thursday 20th June 2024 *
+- more user interacions available 👨 
+- bug fixes 🐛 
+- engine backups 🖥️ 
+- change log public release 📚 
+
