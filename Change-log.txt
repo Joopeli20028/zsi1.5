@@ -1,12 +1,11 @@
 Change-log 📖 
 https://html5-editor.net 
 
-Wednesday 19th June 2024 *
-- wikipedia database interaction 📚 
-- user interacions integrated to base model 🤖 
-- new ui design 🏠 
-- new AI engine 🔧 
-- bug fixes 🐛 
+Monday 8th July 2024 *
+- new interaction engine ⚡️ 
+- bug fixes 🐞 
+- math engine update 📚 
+
 
 Thursday 20th June 2024 *
 - more user interacions available 👨 
@@ -15,3 +14,10 @@ Thursday 20th June 2024 *
 - change log public release 📚 
 
 - color changed
+
+Wednesday 19th June 2024 *
+- wikipedia database interaction 📚 
+- user interacions integrated to base model 🤖 
+- new ui design 🏠 
+- new AI engine 🔧 
+- bug fixes 🐛 
