@@ -13,7 +13,6 @@ Thursday 20th June 2024 *
 - bug fixes 🐛 
 - engine backups 🖥️ 
 - change log public release 📚 
-
 - color changed
 
 Wednesday 19th June 2024 *
