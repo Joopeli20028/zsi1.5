@@ -83,7 +83,7 @@
 <div id="container">
     <div id="chatbox"></div>
     <div id="inputArea">
-        <input type="text" id="userInput" placeholder="Type a message..." />
+        <input type="text" id="userInput" placeholder="Type a message...">
         <button onclick="sendMessage()">Send</button>
     </div>
 </div>
@@ -101,24 +101,55 @@
         "help": "Sure, what do you need help with?"
     };
 
-    function sendMessage() {
-        const userText = userInput.value.toLowerCase();
-        if (!userText) return;
+    const wordsToRemove = ["what", "is", "when", "where", "how", "who"];
 
-        addMessage(userText, 'user');
+    function sendMessage() {
+        const originalText = userInput.value.toLowerCase();
+        if (!originalText) return;
+
+        const filteredText = filterInput(originalText);
+
+        addMessage(originalText, 'user');
         userInput.value = '';
 
         setTimeout(() => {
-            getBotResponse(userText);
+            getBotResponse(filteredText);
         }, 500);
+    }
+
+    function filterInput(input) {
+        const inputWords = input.split(' ');
+        const filteredWords = inputWords.filter(word => !wordsToRemove.includes(word));
+        return filteredWords.join(' ');
     }
 
     function getBotResponse(message) {
         if (customPrompts[message]) {
             addMessage(customPrompts[message], 'bot');
+        } else if (isMathExpression(message)) {
+            const response = processMathExpression(message);
+            addMessage(response, 'bot');
         } else {
             fetchWikipediaSummary(message);
         }
+    }
+
+    function isMathExpression(message) {
+        const mathRegex = /^[0-9+\-*/^().\s]+$/;
+        return mathRegex.test(message);
+    }
+
+    function processMathExpression(expression) {
+        try {
+            const result = evaluateMath(expression);
+            return `The result is: ${result}`;
+        } catch (error) {
+            return "There was an error processing the math expression. Please check your input.";
+        }
+    }
+
+    function evaluateMath(expr) {
+        return Function('return (' + expr + ')')();
     }
 
     function fetchWikipediaSummary(query) {
