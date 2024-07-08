@@ -5,6 +5,7 @@ Monday 8th July 2024 *
 - new interaction engine ⚡️ 
 - bug fixes 🐞 
 - math engine update 📚 
+- a revolutionary image engine 📸 
 
 
 Thursday 20th June 2024 *
