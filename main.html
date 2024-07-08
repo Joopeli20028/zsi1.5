@@ -102,6 +102,7 @@
     };
 
     const wordsToRemove = ["what", "is", "when", "where", "how", "who"];
+    const photoTriggerWords = ["photo", "picture", "image"];
 
     function sendMessage() {
         const originalText = userInput.value.toLowerCase();
@@ -129,9 +130,16 @@
         } else if (isMathExpression(message)) {
             const response = processMathExpression(message);
             addMessage(response, 'bot');
+        } else if (containsPhotoTriggerWord(message)) {
+            const query = message.split(' ').slice(1).join(' ');
+            fetchStockPhoto(query);
         } else {
             fetchWikipediaSummary(message);
         }
+    }
+
+    function containsPhotoTriggerWord(message) {
+        return photoTriggerWords.some(word => message.includes(word));
     }
 
     function isMathExpression(message) {
@@ -169,11 +177,39 @@
             });
     }
 
+    function fetchStockPhoto(query) {
+        const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&client_id=hDaw8psiXHcyPfnA0QFlAxlCiJzVPIR1W1VTnaJXpQM`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    const photoUrl = data.results[0].urls.small;
+                    const photoSource = data.results[0].user.name;
+                    addMessage(`Here is a ${query}:`, 'bot');
+                    addPhoto(photoUrl, photoSource);
+                } else {
+                    addMessage("I couldn't find a photo for that query. Can you try something else?", 'bot');
+                }
+            })
+            .catch(error => {
+                addMessage("There was an error fetching the photo. Please try again later.", 'bot');
+            });
+    }
+
     function addMessage(text, sender) {
         const messageElement = document.createElement('div');
         messageElement.className = 'message ' + sender;
         messageElement.innerText = text;
         chatbox.appendChild(messageElement);
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function addPhoto(url, source) {
+        const photoElement = document.createElement('div');
+        photoElement.className = 'message bot';
+        photoElement.innerHTML = `<img src="${url}" alt="Stock photo" style="max-width: 100%; border-radius: 5px;"><br>Photo by ${source}`;
+        chatbox.appendChild(photoElement);
         chatbox.scrollTop = chatbox.scrollHeight;
     }
 </script>
